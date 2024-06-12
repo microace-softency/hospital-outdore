@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4bc7b300.css",
+    "main.js": "/static/js/main.251f8b84.js",
+    "static/media/wallpaper.jpg": "/static/media/wallpaper.06b8cd982b1a20e11a5b.jpg",
+    "static/media/logoHos.png": "/static/media/logoHos.a6f047ac1104d9bf034e.png",
+    "static/media/msc.png": "/static/media/msc.d96aff931f4eb14ad641.png",
+    "index.html": "/index.html",
+    "main.4bc7b300.css.map": "/static/css/main.4bc7b300.css.map",
+    "main.251f8b84.js.map": "/static/js/main.251f8b84.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4bc7b300.css",
+    "static/js/main.251f8b84.js"
+  ]
+}
