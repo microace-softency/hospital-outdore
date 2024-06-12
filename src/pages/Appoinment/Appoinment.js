@@ -25,7 +25,7 @@ function Appointments() {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://localhost:8005/api/registation");
+      const response = await axios.get("http://localhost:8005/api/outdoreregistation");
       setData(response.data[0]);
       console.log(response.data);
     } catch (error) {
@@ -59,11 +59,11 @@ function Appointments() {
     },
     {
       header: "Patiant Code",
-      accessorKey: "rpcode",
+      accessorKey: "orpCode",
     },
     {
       header: "Patiant Name",
-      accessorKey: "name",
+      accessorKey: "patiantname",
     },
     {
       header: "Gender",
@@ -87,7 +87,7 @@ function Appointments() {
     },
     {
       header: "Address",
-      accessorKey: "location",
+      accessorKey: "address",
     },
     {
       header: "Guardian Number",

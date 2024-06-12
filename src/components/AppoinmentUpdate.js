@@ -24,9 +24,10 @@ import {
 import Webcam from "react-webcam";
 
 const initialState = {
+  orpCode: "",
   date: new Date().toISOString().split("T")[0],
-  location: "",
-  name: "",
+  address: "",
+  patiantname: "",
   image: "",
   mobilenumber: "",
   sex: "",
@@ -54,9 +55,10 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
   console.log("data ", state);
 
   const {
+    orpCode,
     date,
-    location,
-    name,
+    patiantname,
+    address,
     image,
     mobilenumber,
     sex,
@@ -65,9 +67,7 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
     guardianname,
     doctorname,
     doctordesignation,
-    time,
-    type,
-    price,
+    time
   } = state;
   const { id } = useParams();
   const navigate = useNavigate();
@@ -101,16 +101,17 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      !name 
+      !patiantname 
     ) {
       toast.error("Please provide value into * inpute field ");
     } else {
       if (id) {
         axios
         .put(`http://localhost:8005/api/registation/updateregistation/${id}`, {
+          orpCode,
           date,
-          location,
-          name,
+          address,
+          patiantname,
           image,
           mobilenumber,
           sex,
@@ -120,8 +121,6 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
           doctorname,
           doctordesignation,
           time,
-          type,
-          price,
         })
         .then(() => {
           setState({initialState});
@@ -269,8 +268,8 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
                         disabled
                         type="text"
                         id="mobilenumber"
-                        name="id"
-                        value={id || ""}
+                        name="orpCode"
+                        value={orpCode || ""}
                         onChange={handleInputChange}
                       />
                     </Form.Group>
@@ -313,9 +312,9 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
                       <Input
                         placeholder="Enter Patiant Name"
                         type="text"
-                        id="name"
-                        name="name"
-                        value={name || ""}
+                        id="patiantname"
+                        name="patiantname"
+                        value={patiantname || ""}
                         onChange={handleInputChange}
                       />
                     </Form.Group>
@@ -328,8 +327,8 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
                       <Input
                         placeholder="Enter Patiant Address"
                         type="text"
-                        name="location"
-                        value={location || ""}
+                        name="address"
+                        value={address || ""}
                         onChange={handleInputChange}
                       />
                     </Form.Group>
@@ -458,44 +457,6 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
                           </option>
                         ))}
                       </Form.Select>
-                    </Form.Group>
-                  </Col>
-                  <Col lg={2} md={4} sm={6}>
-                    <Form.Group controlId="medicalHistory">
-                      <Form.Label className="block text-gray-700 font-medium">
-                        Type *
-                      </Form.Label>
-                      <RadioGroup
-                        defaultValue="medium"
-                        name="type"
-                        value={type || ""}
-                        onChange={handleInputChange}
-                      >
-                        <Radio
-                          value="Spacial"
-                          label="Spacial"
-                          color="primary"
-                        />
-                        <Radio
-                          value="General"
-                          label="General"
-                          color="neutral"
-                        />
-                      </RadioGroup>
-                    </Form.Group>
-                  </Col>
-                  <Col lg={4} md={4} sm={6}>
-                    <Form.Group controlId="medications">
-                      <Form.Label className="block text-gray-700 font-medium">
-                        Charge
-                      </Form.Label>
-                      <Form.Control
-                        rows={1}
-                        id="price"
-                        name="price"
-                        value={price || ""}
-                        onChange={handleInputChange}
-                      />
                     </Form.Group>
                   </Col>
                 </Row>

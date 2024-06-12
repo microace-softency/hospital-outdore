@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
 
-import background from "../assets/images/Medical_login-1.jpg";
+import background from "../assets/images/wallpaper1.jpg";
 
 function LoginPage() {
   const {

@@ -11,18 +11,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import TimePicker from "react-time-picker";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  Input,
-  Radio,
-  RadioGroup,
-} from "@mui/joy";
+import { Input, Radio, RadioGroup } from "@mui/joy";
 import Webcam from "react-webcam";
 
 const initialState = {
   date: new Date().toISOString().split("T")[0],
-  location: "",
-  name: "",
   image: "",
+  patiantname: "",
+  address: "",
   mobilenumber: "",
   sex: "",
   age: "",
@@ -34,9 +30,7 @@ const initialState = {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-  }),
-  type: "",
-  price: "",
+  })
 };
 
 function CreateAppointmentForm({ onCreate, onCancel }) {
@@ -47,28 +41,25 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
   const [indoor, setIndoor] = useState(false);
   const [error, setError] = useState();
   const [showCaptureButton, setShowCaptureButton] = useState(true);
-  const webcamRef = useRef(null); 
+  const webcamRef = useRef(null);
   const [registationCode, setRegistationCode] = useState([]);
 
-  console.log('registationCode', registationCode);
+  console.log("registationCode", registationCode);
 
   const {
     date,
-    location,
-    name,
     image,
+    patiantname,
+    address,
     mobilenumber,
     sex,
     age,
     guardiannumber,
     guardianname,
     doctorname,
-    doctordesignation,
     time,
-    type,
-    price,
   } = state;
-
+console.log('state', state);
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -79,7 +70,7 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
     const fetchNextRegistationCode = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8005/api/registation/nexregistationcode"
+          "http://localhost:8005/api/outdoreregistation/nexregistationcode"
         );
         setRegistationCode(response.data.RegistationCode);
       } catch (error) {
@@ -104,7 +95,7 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
   const capturePhoto = () => {
     const photo = webcamRef.current.getScreenshot({
       screenshotFormat: "image/jpeg",
-      quality: 1.0, 
+      quality: 1.0,
     });
     setState({ ...state, photo });
     setShowCaptureButton(false); // Hide the capture button after photo is captured
@@ -121,60 +112,33 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      !name ||
-      !mobilenumber ||
-      !sex ||
-      !age ||
-      !doctorname ||
-      !type ||
-      !price
-    ) {
+    if (!patiantname || !mobilenumber || !sex || !age || !doctorname) {
       toast.error("Please provide value into * inpute field ");
     } else {
       if (!id) {
         axios
-          .post("http://localhost:8005/api/registation/createregistation", {
-            date,
-            location,
-            name,
-            image,
-            mobilenumber,
-            sex,
-            age,
-            guardiannumber,
-            guardianname,
-            doctorname,
-            doctordesignation,
-            time,
-            type,
-            price,
-          })
+          .post(
+            "http://localhost:8005/api/outdoreregistation/createoutdoreregistation",
+            {
+              date,
+              time,
+              patiantname,
+              address,
+              image,
+              mobilenumber,
+              guardianname,
+              guardiannumber,
+              doctorname,
+              sex,
+              age,
+            }
+          )
           .then(() => {
-            setState({
-              date: new Date().toISOString().split("T")[0],
-              location: "",
-              name: "",
-              image: "",
-              mobilenumber: "",
-              sex: "",
-              age: "",
-              doctorname: "",
-              guardiannumber: "",
-              guardianname: "",
-              doctordesignation: "",
-              time: "",
-              type: new Date().toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                second: "2-digit",
-              }),
-              price: "",
-            });
+            setState(initialState);
             console.log("classdetails", state);
           })
           .catch((err) => toast.error(err.respose.data));
-        toast.success("class Add Successfully");
+        toast.success("Successfully");
       } else {
         // axios
         //   .put(`http://localhost:3002/api/classupdate/${id}`, {
@@ -239,7 +203,7 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
     }
     console.log("inpu", e);
   };
-  
+
   //fatch doctor
   const loadDoctorData = async () => {
     try {
@@ -254,7 +218,7 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
   useEffect(() => {
     loadDoctorData();
   }, []);
-  
+
   //fatch Location
   const loadLocationData = async () => {
     try {
@@ -333,9 +297,9 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
                         required
                         placeholder="Enter Patiant Name"
                         type="text"
-                        id="name"
-                        name="name"
-                        value={name || ""}
+                        id="patiantname"
+                        name="patiantname"
+                        value={patiantname || ""}
                         onChange={handleInputChange}
                       />
                     </Form.Group>
@@ -349,8 +313,8 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
                         required
                         placeholder="Enter Patiant Address"
                         type="text"
-                        name="location"
-                        value={location || ""}
+                        name="address"
+                        value={address || ""}
                         onChange={handleInputChange}
                       />
                     </Form.Group>
@@ -390,7 +354,7 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
                         Mobile Number *
                       </Form.Label>
                       <Form.Control
-                         required
+                        required
                         placeholder="Enter Mobile Number"
                         type="text"
                         id="mobilenumber"
@@ -406,7 +370,7 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
                         Gender *
                       </Form.Label>
                       <Form.Select
-                      required
+                        required
                         placeholder="Select Gender"
                         name="sex"
                         value={sex || ""}
@@ -425,7 +389,7 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
                         Age *
                       </Form.Label>
                       <Form.Control
-                         required
+                        required
                         placeholder="Age"
                         type="text"
                         id="age"
@@ -483,20 +447,6 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
                           </option>
                         ))}
                       </Form.Select>
-                    </Form.Group>
-                  </Col>
-                  <Col lg={4} md={4} sm={6}>
-                    <Form.Group controlId="medications">
-                      <Form.Label className="block text-gray-700 font-medium">
-                        Charge
-                      </Form.Label>
-                      <Form.Control
-                        rows={1}
-                        id="price"
-                        name="price"
-                        value={price || ""}
-                        onChange={handleInputChange}
-                      />
                     </Form.Group>
                   </Col>
                 </Row>
