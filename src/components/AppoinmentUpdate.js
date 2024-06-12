@@ -40,9 +40,7 @@ const initialState = {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
-  }),
-  type: "",
-  price: "",
+  })
 };
 
 function AppoinmentUpdate({ onCreate, onCancel }) {
@@ -69,6 +67,7 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
     doctordesignation,
     time
   } = state;
+  console.log('stateoutdore', state);
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -94,7 +93,7 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8005/api/registation/${id}`)
+      .get(`http://localhost:8005/api/outdoreregistation/${id}`)
       .then((resp) =>  setState({ ...resp.data[0] }));
   }, [id]);
 
@@ -107,7 +106,7 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
     } else {
       if (id) {
         axios
-        .put(`http://localhost:8005/api/registation/updateregistation/${id}`, {
+        .put(`http://localhost:8005/api/outdoreregistation/updateregistation/${id}`, {
           orpCode,
           date,
           address,
@@ -126,7 +125,7 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
           setState({initialState});
         })
         .catch((err) => toast.error(err.respose.data));
-      toast.success("Admission Update Successfully");
+      toast.success("Registation Update Successfully");
       }
       setTimeout(() => {navigate('/appoinment')}, 500);
     }
@@ -208,7 +207,7 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
   //factch patiant
   const loadPatiantData = async () => {
     try {
-      const response = await axios.get("http://localhost:8005/api/registation");
+      const response = await axios.get("http://localhost:8005/api/outdoreregistation");
       setPatiant(response.data[0]);
       console.log(response.data, "pataiant");
     } catch (error) {
@@ -248,7 +247,7 @@ function AppoinmentUpdate({ onCreate, onCancel }) {
   }, []);
 
   return (
-    <div className="">
+    <div className="container p-2">
       {/* <h2 className="text-xl font-semibold">Create Registation</h2> */}
       <Form onSubmit={handleSubmit}>
         <Row className="p-2">

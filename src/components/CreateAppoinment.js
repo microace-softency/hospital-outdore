@@ -43,8 +43,8 @@ function CreateAppointmentForm({ onCreate, onCancel }) {
   const [showCaptureButton, setShowCaptureButton] = useState(true);
   const webcamRef = useRef(null);
   const [registationCode, setRegistationCode] = useState([]);
-
-  console.log("registationCode", registationCode);
+  
+  console.log('setRegistationCodedata', registationCode);
 
   const {
     date,

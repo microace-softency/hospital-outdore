@@ -42,7 +42,7 @@ function Appointments() {
 
   const deleteContact = (id) => {
     if (
-      window.confirm("Are you sure that you wanted to delete that Appoinment ?")
+      window.confirm("Are you sure that you wanted to delete that Registation details ?")
     ) {
       axios.delete(
         `http://localhost:8005/api/registation/removeregistation/${id}`
