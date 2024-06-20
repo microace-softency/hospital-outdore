@@ -78,7 +78,7 @@ import { RxAvatar } from "react-icons/rx";
 import { useAuth } from "../context/AuthContext";
 
 function AppNavbar() {
-  const { user, tenant } = useAuth()
+  const { username, email } = useAuth()
   const { state, dispatch } = useGlobalState();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [greeting, setGreeting] = useState("");
@@ -88,8 +88,7 @@ function AppNavbar() {
     setSidebarOpen(state.sidebarOpen);
   }, [state.sidebarOpen]);
   
-  console.log(tenant);
-  const displayName = tenant?.name || tenant?.email || "Guest"; 
+  const displayName = username || "Guest"; 
  
   useEffect(() => {
     const now = new Date();

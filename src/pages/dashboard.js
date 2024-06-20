@@ -8,10 +8,13 @@ import { FaUserDoctor } from "react-icons/fa6";
 
 
 function Dashboard() {
-  const { company } = useAuth()
-  useEffect(() => {
-    // console.log('712201', company);
-  },[company])
+  const { location } = useAuth()
+  // useEffect(() => {
+  //   console.log('712201', location);
+  // },[location])
+
+  console.log('location', location);
+
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [doctorData, setDoctorData] = useState([]);
   const [StaffsData, setStaffsData] = useState([]);
@@ -102,6 +105,11 @@ function Dashboard() {
       <div className='flex items-center justify-start w-full h-full'>
         {/* <p className='text-[30px] text-slate-600 font-bold'> {company?.CName || 'Welcome'}</p> */}
       </div>
+      <Row>
+      <Col sm={12} md={12} lg={12} xl={12} className=''>
+      <p className='text-xl font-semibold'>Camp Location <span className='text-red-600'>{location}</span> </p>
+      </Col>
+      </Row>
       <Row className='pt-4'>
         <Col sm={6} md={6} lg={3} xl={3} className=''>
           <div className='rounded-xl bg-sky-50 drop-shadow sm:w-60 mx-auto h-max my-1'>

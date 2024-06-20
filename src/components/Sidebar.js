@@ -55,7 +55,7 @@ function Sidebar() {
   const [reportMenuOpen, setReportMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const windowWidth = window.innerWidth;
-  const { logout } = useAuth();
+  const { logout, signOut } = useAuth();
 
   console.log("user", tenant);
   useEffect(() => {
@@ -70,7 +70,7 @@ function Sidebar() {
   };
 
   const handleLogout = () => {
-    logout();
+    signOut();
     navigate("/login");
   };
 
