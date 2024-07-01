@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGlobalState } from "../context/GlobalStateContext";
 import { useAuth } from "../context/AuthContext";
 import { useLocation } from "react-router-dom";
-import background from "../assets/images/hospitalBodyImg.jpg";
+import background from "../assets/images/Page_anothr.jpg";
 
 const MainContent = ({ children }) => {
   const { token } = useAuth();
@@ -29,6 +29,7 @@ const MainContent = ({ children }) => {
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
+        maxWidth:"100%"
       }}
     >
       {children}

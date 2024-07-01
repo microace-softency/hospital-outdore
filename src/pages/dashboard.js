@@ -107,7 +107,7 @@ function Dashboard() {
       </div>
       <Row>
       <Col sm={12} md={12} lg={12} xl={12} className=''>
-      <p className='text-xl font-semibold'>Camp Location <span className='text-red-600'>{location}</span> </p>
+      <p className='text-xl font-semibold text-white'>Camp Location <span className='text-red-600'>{location}</span> </p>
       </Col>
       </Row>
       <Row className='pt-4'>
